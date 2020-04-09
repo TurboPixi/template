@@ -2,27 +2,63 @@ import routes from './route'
 import style from '~/style.less'
 import {hot} from 'react-hot-loader/root'
 import cache, {createReducer} from '~/module/state'
-import {BrowserRouter, Switch, Route, useRouteMatch} from 'react-router-dom'
+import {client} from '~/util'
+// import {BrowserRouter, Switch, StaticRouter} from 'react-router-dom'
+// import ReactDOM from 'react-dom'
+import {Switch, Route, StaticRouter, BrowserRouter} from 'react-router-dom'
 
-const Router = PROD ? BrowserRouter : hot(BrowserRouter)
-const {useCallback} = React
+// const Router = PROD ? (client ? BrowserRouter : StaticRouter) : hot(client ? BrowserRouter : StaticRouter)
+// const {useCallback} = React
 
-ReactDOM.render(
-  <Router><Switch>
+// if (client) {
+//   ReactDOM.hydrate(
+//     <Router><Switch>
+//       <Route path="*">
+//         <Main></Main>
+//       </Route>
+//     </Switch></Router>,
+//     document.querySelector('.layout')
+//   )
+// } else {
+//   // module.exports = <Switch>
+//   //   <Route path="*">
+//   //     <Main></Main>
+//   //   </Route>
+//   // </Switch>
+// }
+
+if (client) {
+  ReactDOM.hydrate(
+    <BrowserRouter><Switch>
+     <Route path="*">
+       <Main></Main>
+     </Route>
+   </Switch></BrowserRouter>,
+   document.querySelector('.main')
+  )
+}
+
+export default function(props) {
+  return <StaticRouter {...props}><Switch>
     <Route path="*">
-      <Main></Main>
+      <Main/>
     </Route>
-  </Switch></Router>,
-  document.querySelector('.layout')
-)
+  </Switch></StaticRouter>
+}
 
 function Main(props) {
-  const [state, dispatch] = createReducer()
+  let state, dispatch
+
+  if (client) {
+    ([state, dispatch] = createReducer())
+  } else {
+    state = {}
+  }
 
   return <section className="main">
     <cache.Provider value={state}>
       <Switch>{loop(routes)}</Switch>
-    </cache.Provider>
+    </cache.Provider>}
   </section>
 }
 

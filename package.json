@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "rm -fr dist & webpack -p",
+    "dev": "node server/index.js",
+    "build": "rm -fr dist & npm run build:client & npm run build:server",
+    "build:client": "webpack -p",
+    "build:server": "webpack -p --config webpack.config.server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": [
@@ -36,12 +39,15 @@
     "eslint": "^6.8.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^4.0.3",
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.8",
+    "koa-static": "^5.0.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.9.0",
     "postcss-loader": "^3.0.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.18",
     "react-router-dom": "^5.1.2",
     "react-scoped-styles": "^0.3.2",
