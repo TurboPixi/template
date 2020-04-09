@@ -3,7 +3,7 @@ const {prototype: {toString}, keys} = Object
 
 export default createContext({})
 
-export function createReducer({reducer = _reducer, value = {}}) {
+export function createReducer({reducer = _reducer, value = {}} = {}) {
   return useReducer(reducer, value)
 }
 

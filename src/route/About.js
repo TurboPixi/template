@@ -1,5 +1,5 @@
 export default function() {
   return <section>
-    login
+    About1
   </section>
 }

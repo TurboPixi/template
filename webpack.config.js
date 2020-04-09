@@ -25,7 +25,6 @@ const lessLoader = {
 
 const conf = {
   entry: [
-    'antd/dist/antd.less',
     './src/app.js',
   ],
 
@@ -38,18 +37,8 @@ const conf = {
 
   resolve: {
     alias: {
-      '@': path.resolve('.')
-    }
-  },
-
-  devServer: {
-    hot: true,
-    host: '0.0.0.0',
-    contentBase: '.',
-    stats: 'errors-only',
-    historyApiFallback: true,
-    overlay: {
-      errors: true
+      '@': path.resolve('.'),
+      '~': path.resolve('src')
     }
   },
 
@@ -59,12 +48,6 @@ const conf = {
 
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.jsx?$/,
-        use: ['eslint-loader'],
-        exclude: /node_modules/,
-      },
       {
         test: /\.jsx?$/,
         use: ['babel-loader'],
@@ -166,6 +149,17 @@ if (prod) {
   )
 } else {
   conf.entry.unshift('react-hot-loader/patch')
+
+  conf.devServer = {
+    hot: true,
+    host: '0.0.0.0',
+    contentBase: '.',
+    stats: 'errors-only',
+    historyApiFallback: true,
+    overlay: {
+      errors: true
+    }
+  }
 
   Object.assign(conf.resolve.alias, {
     'react-dom': '@hot-loader/react-dom'
