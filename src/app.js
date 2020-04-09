@@ -4,6 +4,7 @@ import {hot} from 'react-hot-loader/root'
 import {cache} from '~/module'
 import {client} from '~/util'
 import {BrowserRouter, StaticRouter, Switch, Route} from 'react-router-dom'
+import {renderToString} from 'react-dom/server'
 
 const Router = PROD ? BrowserRouter : hot(BrowserRouter)
 
@@ -19,13 +20,13 @@ if (client) {
 }
 
 export default function(props) {
-  return <StaticRouter {...props}>
+  return renderToString(<StaticRouter {...props}>
     <Switch>
       <Route path="*">
         <Main></Main>
       </Route>
     </Switch>
-  </StaticRouter>
+  </StaticRouter>)
 }
 
 
