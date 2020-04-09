@@ -15,7 +15,14 @@
 
   input {
     outline: none;
+    background-color: #fff;
     box-sizing: border-box;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      background-color: #fff !important;
+    }
   }
 }
 

@@ -1,13 +1,10 @@
+const fs = require('fs')
 const Koa = require('koa')
 const React = require('react')
-const ReactDOMServer = require('react-dom/server')
 const Router = require('koa-router')
 const App = require('../dist/server.js').default
-const {StaticRouter} = require('react-router-dom')
-const fs = require('fs')
-const path = require('path')
+const ReactDOMServer = require('react-dom/server')
 
-console.log('server:', process.env.NODE_ENV)
 const app = new Koa()
 const router = new Router()
 const template = fs.readFileSync('dist/index.html', 'utf-8')

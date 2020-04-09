@@ -1,27 +1,39 @@
 import routes from './route'
 import style from '~/style.less'
 import {hot} from 'react-hot-loader/root'
-import cache, {createReducer} from '~/module/state'
+import {cache} from '~/module'
 import {client} from '~/util'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {BrowserRouter, StaticRouter, Switch, Route} from 'react-router-dom'
 
 const Router = PROD ? BrowserRouter : hot(BrowserRouter)
 
-ReactDOM.render(
-  <Router><Switch>
-    <Route path="*">
-      <Main></Main>
-    </Route>
-  </Switch></Router>,
-  document.querySelector('.layout')
-)
+if (client) {
+  ReactDOM.render(
+    <Router><Switch>
+      <Route path="*">
+        <Main></Main>
+      </Route>
+    </Switch></Router>,
+    document.querySelector('.layout')
+  )
+}
+
+export default function(props) {
+  return <StaticRouter {...props}>
+    <Switch>
+      <Route path="*">
+        <Main></Main>
+      </Route>
+    </Switch>
+  </StaticRouter>
+}
 
 
 function Main(props) {
-  const [state, dispatch] = createReducer()
+  // const [state, dispatch] = createReducer()
 
   return <section className="main">
-    <cache.Provider value={state}>
+    <cache.Provider>
       <Switch>{loop(routes)}</Switch>
     </cache.Provider>
   </section>
