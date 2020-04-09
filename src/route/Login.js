@@ -1,11 +1,11 @@
 import style from '~/style.less'
 import {nil, client} from '~/util'
 
-const {useEffect, useCallback, useMemo} = React
+const {useCallback} = React
 
 export default function() {
 
-  const onClick = useMemo(() => {
+  const onClick = useCallback(() => {
     console.log('ok')
   }, nil)
 

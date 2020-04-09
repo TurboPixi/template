@@ -1,4 +1,4 @@
-const {createContext, useReducer} = React
+import {createContext, useReducer} from 'react'
 const {prototype: {toString}, keys} = Object
 
 export default createContext({})
