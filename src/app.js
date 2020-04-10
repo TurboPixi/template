@@ -1,7 +1,7 @@
 import routes from './route'
 import style from '~/style.less'
 import {hot} from 'react-hot-loader/root'
-import {cache} from '~/module'
+import {cache, createReducer} from '~/module'
 import {client} from '~/util'
 import {BrowserRouter, StaticRouter, Switch, Route} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
@@ -31,10 +31,10 @@ export default function(props) {
 
 
 function Main(props) {
-  // const [state, dispatch] = createReducer()
+  const [state, dispatch] = createReducer()
 
   return <section className="main">
-    <cache.Provider>
+    <cache.Provider value={state}>
       <Switch>{loop(routes)}</Switch>
     </cache.Provider>
   </section>
