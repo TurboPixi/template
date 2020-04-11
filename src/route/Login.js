@@ -1,9 +1,15 @@
 import style from '~/style.less'
-import {nil, client} from '~/util'
+import {nil, delay, client} from '~/util'
+import {createReducer} from '~/module'
 
 const {useCallback} = React
 
 export default function() {
+  const [state, dispatch] = createReducer({
+    value: {
+      account: ''
+    }
+  })
 
   const onClick = useCallback(() => {
     console.log('ok')
@@ -12,12 +18,12 @@ export default function() {
   return <section className={style.login}>
     <section className={style.form}>
       <div className={style.account}>
-        <input required></input>
-        <label>账号</label>
+        <input required id={style.account} value={state.account} onChange={onClick}></input>
+        <label htmlFor={style.account}>账号</label>
       </div>
       <div className={style.password}>
-        <input required type="password"></input>
-        <label onClick={onClick}>密码</label>
+        <input required type="password" id={style.password}></input>
+        <label onClick={onClick} htmlFor={style.password}>密码</label>
       </div>
     </section>
   </section>

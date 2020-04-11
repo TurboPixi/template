@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "dev": "node server/index.js",
+    "dev": "webpack-dev-server",
+    "start": "node server/index.js",
+    "dev:sw": "webpack -w --config webpack.sw.js",
     "build": "rm -fr dist & npm run build:client & npm run build:server",
-    "build:client": "webpack",
-    "build:server": "webpack --config webpack.server.js",
+    "build:client": "webpack -p",
+    "build:server": "webpack -p --config webpack.server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": [

@@ -1,13 +1,9 @@
-const os = require('os')
 const path = require('path')
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
-
-const prod = false //process.argv.includes('-p')
+const prod = process.argv.includes('-p')
 
 const cssLoader = {
   loader: 'css-loader',
@@ -37,6 +33,8 @@ const conf = {
     publicPath: '/',
     libraryTarget: 'commonjs2'
   },
+
+  externals: /\.css$/,
 
   resolve: {
     alias: {
@@ -78,7 +76,7 @@ const conf = {
       {
         test: /\.css$/,
         include: /node_modules/,
-        use: prod ? ['style-loader', 'css-loader'] : ['style-loader', 'css-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       }
     ]
   },

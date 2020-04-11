@@ -3,15 +3,17 @@ const Koa = require('koa')
 const React = require('react')
 const serve = require('koa-static')
 const Router = require('koa-router')
-const {default: App} = require('../dist/server.js')
-const {renderToString} = require('react-dom/server')
+const {default: render} = require('../dist/server.js')
 
 const app = new Koa()
 const router = new Router()
 const template = fs.readFileSync('dist/index.html', 'utf-8')
 
 router.get('*', async ctx => {
-  ctx.body = template.replace('<!--root-->', App({location: ctx.req.url, context: {}}))
+  return render({location: ctx.req.url, context: {}}).then(html => {
+    console.log(globalThis.tasks)
+    ctx.body = template.replace('<!--root-->', html)
+  })
 })
 
 app

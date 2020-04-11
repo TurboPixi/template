@@ -156,6 +156,9 @@ if (prod) {
     contentBase: '.',
     stats: 'errors-only',
     historyApiFallback: true,
+    headers: {
+      'Service-Worker-Allowed': '/',
+    },
     overlay: {
       errors: true
     }
