@@ -11,7 +11,6 @@ const template = fs.readFileSync('dist/index.html', 'utf-8')
 
 router.get('*', async ctx => {
   return render({location: ctx.req.url, context: {}}).then(html => {
-    console.log(globalThis.tasks)
     ctx.body = template.replace('<!--root-->', html)
   })
 })

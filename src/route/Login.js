@@ -2,12 +2,12 @@ import style from '~/style.less'
 import {nil, delay, client} from '~/util'
 import {createReducer} from '~/module'
 
-const {useCallback} = React
+const {useCallback, useEffect} = React
 
 export default function() {
   const [state, dispatch] = createReducer({
     value: {
-      account: ''
+      account: '789'
     }
   })
 

@@ -21,15 +21,13 @@ if (client) {
 
 export default function(props) {
   return renderToString(<StaticRouter {...props}>
-      <Switch>
-        <Route path="*">
-          <Main></Main>
-        </Route>
-      </Switch>
-    </StaticRouter>
-  )
+    <Switch>
+      <Route path="*">
+        <Main></Main>
+      </Route>
+    </Switch>
+  </StaticRouter>)
 }
-
 
 function Main(props) {
   const [state] = createReducer()
@@ -54,7 +52,7 @@ function loop(routes) {
 if (client && navigator.serviceWorker) {
   navigator.serviceWorker.register('sw.js', {
     scope: '/'
-  }).then(registraction => { 
+  }).then(registraction => {
     console.log(registraction)
   })
 }
