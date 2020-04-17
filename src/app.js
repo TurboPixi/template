@@ -1,10 +1,12 @@
+import './style.less'
 import routes from './route'
 import {hot} from 'react-hot-loader/root'
-import {cache, createReducer} from '~/module'
+import {cache} from '~/module'
 import {client} from '~/util'
 import {BrowserRouter, StaticRouter, Switch, Route} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
 
+const {useState} = React
 const Router = PROD ? BrowserRouter : hot(BrowserRouter)
 
 if (client) {
@@ -30,7 +32,7 @@ export default function(props) {
 }
 
 function Main(props) {
-  const [state] = createReducer()
+  const [state] = useState({})
 
   return <section className="main">
     <cache.Provider value={state}>

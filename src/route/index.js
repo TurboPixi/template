@@ -2,12 +2,18 @@ export default [
   {
     path: '/',
     exact: true,
-    component: require('./Entry').default
+    component: require('./entry').default
   },
 
   {
     path: '/login',
     exact: true,
-    component: require('./Login').default
-  }
+    component: require('./login').default
+  },
+
+  {
+    path: '/about',
+    exact: true,
+    component: require('./about').default
+  },
 ]
