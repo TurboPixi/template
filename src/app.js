@@ -5,6 +5,7 @@ import {cache} from '~/module'
 import {client} from '~/util'
 import {BrowserRouter, StaticRouter, Switch, Route} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
+import {Icon} from '~/module/ui'
 
 const {useState} = React
 const Router = PROD ? BrowserRouter : hot(BrowserRouter)
@@ -35,6 +36,7 @@ function Main(props) {
   const [state] = useState({})
 
   return <section className="main">
+    <Icon/>
     <cache.Provider value={state}>
       <Switch>{loop(routes)}</Switch>
     </cache.Provider>

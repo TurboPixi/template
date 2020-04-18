@@ -1,0 +1,71 @@
+.entry {
+  :global {
+    video {
+      width: 100%;
+    }
+  }
+
+  .tab-bar {
+    max-width: var(--width);
+    width: 90%;
+  }
+
+  .media-list {
+    padding: 16px 0;
+    max-width: var(--width);
+    width: 90%;
+    margin: auto;
+    animation: fade-in .3s ease forwards;
+
+    :global {
+      video {
+        border-radius: 4px;
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .blog-list {
+    padding: 16px 0;
+    max-width: var(--width);
+    width: 90%;
+    margin: auto;
+    animation: fade-in .3s ease forwards;
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .no-data {
+      display: block;
+      width: 50%;
+      max-width: 120px;
+      margin: auto;
+      display: block;
+
+      use {
+        fill: var(--gray);
+        margin: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.tab {
+  display: flex;
+
+  margin: auto;
+  border-bottom: 1px solid #eee;
+  font-weight: lighter;
+  position: relative;
+
+  li {
+    margin-left: 12px;
+    padding: 16px;
+    transition: color .2s;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &.active {
+      color: var(--blue);
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .cursor {
+    background-color: var(--blue);
+    height: 2px;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    transition: left .2s ease-out, width .2s linear;
+  }
+}

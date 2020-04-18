@@ -78,6 +78,10 @@ const conf = {
         test: /\.css$/,
         include: /node_modules/,
         use: prod ? [MiniCssExtractPlugin.loader, 'css-loader'] : ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(svg|png|jpg)$/,
+        use: ['url-loader'],
       }
     ]
   },

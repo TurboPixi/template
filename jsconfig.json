@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "commonJS",
+    "noImplicitAny": false,
     "paths": {
       "@/*": ["*"],
       "~/*": ["src/*"],
