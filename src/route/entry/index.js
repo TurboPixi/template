@@ -1,22 +1,31 @@
 import {Link} from 'react-router-dom'
-import {nil} from '~/util'
+import {nil, delay, client} from '~/util'
 import style from './style.less'
 import {TabBar} from '~/module/ui'
 
 const {useEffect, useState, useRef, useCallback} = React
 
-export default function() {
-  const [state, setState] = useState({
-    tab: {
-      defaultIndex: 1,
-      index: 1,
-      items: ['图文', '光影']
-    },
+const data = {
+  tab: {
+    defaultIndex: 1,
+    index: 1,
+    items: ['图文', '光影']
+  },
 
-    name: 'JetLu'
-  })
+  name: 'JetLu'
+}
+
+export default function(props) {
+  const [state, setState] = useState(globalThis.__data__?.entry || data)
 
   const {tab} = state
+
+  if (!client) {
+    tasks.push(delay(3).then(() => {
+      data.name = 'ssr'
+      globalThis.__data__.entry = data
+    }))
+  }
 
   const onChange = useCallback((index) => {
     tab.index = index
@@ -26,15 +35,18 @@ export default function() {
   console.log('render entry')
 
   return <section className={style.entry}>
-    <TabBar
-      className={style['tab-bar']}
-      items={tab.items}
-      defaultIndex={tab.defaultIndex}
-      onChange={onChange}
-    />
+    <section className={style.main}>
+      <TabBar
+        className={style['tab-bar']}
+        items={tab.items}
+        defaultIndex={tab.defaultIndex}
+        onChange={onChange}
+      />
+      {state.name}
 
-    {tab.index === 0 && <BlogList/>}
-    {tab.index === 1 && <MediaList/>}
+      {tab.index === 0 && <BlogList/>}
+      {tab.index === 1 && <MediaList/>}
+    </section>
   </section>
 }
 

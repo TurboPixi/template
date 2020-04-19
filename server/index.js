@@ -10,14 +10,17 @@ const router = new Router()
 const template = fs.readFileSync('dist/index.html', 'utf-8')
 
 router.get('*', async ctx => {
-  return render({location: ctx.req.url, context: {}}).then(html => {
-    ctx.body = template.replace('<!--root-->', html)
+  const context = {}
+  return render({location: ctx.req.url, context}).then(html => {
+    ctx.body = template
+      .replace('<!--root-->', html)
+      .replace('/* data */', `window.__data__ = ${JSON.stringify(context)}`)
   })
 })
 
 app
   .use(serve('.'))
-  .use(serve('dist', {index: ''}))
+  .use(serve('dist', {index: 'null'}))
   .use(serve('static'))
   .use(router.routes())
   .use(router.allowedMethods())

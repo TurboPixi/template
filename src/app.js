@@ -22,7 +22,20 @@ if (client) {
   )
 }
 
-export default function(props) {
+export default async function(props) {
+  globalThis.tasks = []
+  globalThis.__data__ = props.context
+
+  renderToString(<StaticRouter {...props}>
+    <Switch>
+      <Route path="*">
+        <Main></Main>
+      </Route>
+    </Switch>
+  </StaticRouter>)
+
+  await Promise.all(tasks)
+
   return renderToString(<StaticRouter {...props}>
     <Switch>
       <Route path="*">
@@ -53,10 +66,10 @@ function loop(routes) {
 
 // for service work
 
-if (client && navigator.serviceWorker) {
-  navigator.serviceWorker.register('sw.js', {
-    scope: '/'
-  }).then(registraction => {
-    console.log(registraction)
-  })
-}
+// if (client && navigator.serviceWorker) {
+//   navigator.serviceWorker.register('sw.js', {
+//     scope: '/'
+//   }).then(registraction => {
+//     console.log(registraction)
+//   })
+// }
