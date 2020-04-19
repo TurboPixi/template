@@ -21,6 +21,35 @@
       }
     }
 
+    .tail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0 12px;
+
+      > div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: var(--gray);
+
+        svg.location {
+          width: 20px;
+          height: 20px;
+          margin-right: 4px;
+          use {
+            fill: var(--cyan);
+            margin: auto;
+          }
+        }
+      }
+
+      > i {
+        font-size: 14px;
+        color: var(--gray);
+      }
+    }
+
     @keyframes fade-in {
       from {
         opacity: 0;

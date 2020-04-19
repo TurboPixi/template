@@ -14,7 +14,7 @@ router.get('*', async ctx => {
   return render({location: ctx.req.url, context}).then(html => {
     ctx.body = template
       .replace('<!--root-->', html)
-      .replace('/* data */', `window.__data__ = ${JSON.stringify(context)}`)
+      .replace('/* data */', `window.STATE = ${JSON.stringify(context)}`)
   })
 })
 

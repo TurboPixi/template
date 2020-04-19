@@ -2,8 +2,9 @@ import {Link} from 'react-router-dom'
 import {nil, delay, client} from '~/util'
 import style from './style.less'
 import {TabBar} from '~/module/ui'
+import dayjs from 'dayjs'
 
-const {useEffect, useState, useRef, useCallback} = React
+const {useEffect, useState, useRef, useCallback, Fragment} = React
 
 const data = {
   tab: {
@@ -16,14 +17,14 @@ const data = {
 }
 
 export default function(props) {
-  const [state, setState] = useState(globalThis.__data__?.entry || data)
+  const [state, setState] = useState(globalThis.STATE?.entry || data)
 
   const {tab} = state
 
   if (!client) {
     tasks.push(delay(3).then(() => {
       data.name = 'ssr'
-      globalThis.__data__.entry = data
+      globalThis.STATE.entry = data
     }))
   }
 
@@ -42,8 +43,6 @@ export default function(props) {
         defaultIndex={tab.defaultIndex}
         onChange={onChange}
       />
-      {state.name}
-
       {tab.index === 0 && <BlogList/>}
       {tab.index === 1 && <MediaList/>}
     </section>
@@ -52,15 +51,22 @@ export default function(props) {
 
 function MediaList() {
   return <section className={style['media-list']}>
-    <video src="static/video/1.mp4" preload="true"
-      onClick={(ev) => {
-        console.log('click')
-        ev.target.play()
-      }}
-    ></video>
-    <div>
-
-    </div>
+    {
+      Array.from({length: 10}).map((_, i) => {
+        return <Fragment key={i}>
+          <video src="static/video/1.mp4" preload="preload" autoPlay={false}
+            playsInline muted
+          ></video>
+          <div className={style.tail}>
+            <div>
+              <svg className={style.location}><use xlinkHref="#location"></use></svg>
+              <i>杭州</i>
+            </div>
+            <i className="color-gray font-14">{dayjs().format('YYYY/MM/DD HH:mm:ss')}</i>
+          </div>
+        </Fragment>
+      })
+    }
   </section>
 }
 

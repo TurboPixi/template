@@ -24,7 +24,7 @@ if (client) {
 
 export default async function(props) {
   globalThis.tasks = []
-  globalThis.__data__ = props.context
+  globalThis.STATE = props.context
 
   renderToString(<StaticRouter {...props}>
     <Switch>
