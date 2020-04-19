@@ -6,6 +6,7 @@ import {client} from '~/util'
 import {BrowserRouter, StaticRouter, Switch, Route} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
 import {Icon} from '~/module/ui'
+import dayjs from 'dayjs'
 
 const {useState} = React
 const Router = PROD ? BrowserRouter : hot(BrowserRouter)
@@ -15,7 +16,7 @@ if (client) {
   ReactDOM.render(
     <Router><Switch>
       <Route path="*">
-        <Main></Main>
+        <Main/>
       </Route>
     </Switch></Router>,
     document.querySelector('.layout')
@@ -29,7 +30,7 @@ export default async function(props) {
   renderToString(<StaticRouter {...props}>
     <Switch>
       <Route path="*">
-        <Main></Main>
+        <Main/>
       </Route>
     </Switch>
   </StaticRouter>)
@@ -39,7 +40,7 @@ export default async function(props) {
   return renderToString(<StaticRouter {...props}>
     <Switch>
       <Route path="*">
-        <Main></Main>
+        <Main/>
       </Route>
     </Switch>
   </StaticRouter>)
@@ -53,6 +54,8 @@ function Main(props) {
     <cache.Provider value={state}>
       <Switch>{loop(routes)}</Switch>
     </cache.Provider>
+    <div className="footer-placeholder"></div>
+    <footer>@ {dayjs().format('YYYY')} 南柯一梦</footer>
   </section>
 }
 

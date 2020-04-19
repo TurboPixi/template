@@ -54,8 +54,11 @@ function MediaList() {
     {
       Array.from({length: 10}).map((_, i) => {
         return <Fragment key={i}>
-          <video src="static/video/1.mp4" preload="preload" autoPlay={false}
-            playsInline muted
+          <video src="static/video/1.mp4"
+            preload="yes"
+            playsInline
+            poster="static/video/1.mp4"
+            muted
           ></video>
           <div className={style.tail}>
             <div>
