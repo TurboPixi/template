@@ -43,22 +43,39 @@ export default function(props) {
         defaultIndex={tab.defaultIndex}
         onChange={onChange}
       />
-      {tab.index === 0 && <BlogList/>}
-      {tab.index === 1 && <MediaList/>}
+      <BlogList className={[tab.index === 0 ? style.active : ''].join(' ')}/>
+      <MediaList className={[tab.index === 1 ? style.active : ''].join(' ')}/>
     </section>
   </section>
 }
 
-function MediaList() {
-  return <section className={style['media-list']}>
+function MediaList(props) {
+  const [state, setState] = useState({
+    list: []
+  })
+
+  const play = useCallback(({target}) => {
+    console.log(target.playing)
+    target.muted = false
+    target.play()
+  }, nil)
+
+  useEffect(() => {
+    state.list.push({
+      src: 'https://qiniu.lufei.so/video/movie.mp4'
+    })
+    setState({...state})
+  }, nil)
+
+  return <section className={[style['media-list'], props.className].join(' ')}>
     {
-      Array.from({length: 10}).map((_, i) => {
+      state.list.map((item, i) => {
         return <Fragment key={i}>
-          <video src="static/video/1.mp4"
+          <video src={item.src}
             preload="yes"
             playsInline
-            poster="static/video/1.mp4"
-            muted
+            poster={require('@/static/img/icon.apple.png').default}
+            onClick={play}
           ></video>
           <div className={style.tail}>
             <div>
@@ -73,7 +90,7 @@ function MediaList() {
   </section>
 }
 
-function BlogList() {
+function BlogList(props) {
   const [state, setState] = useState({
     data: []
   })
@@ -81,7 +98,7 @@ function BlogList() {
   const {data} = state
 
   if (!data.length) {
-    return <section className={style['blog-list']}>
+    return <section className={[style['blog-list'], props.className].join(' ')}>
       <svg className={style['no-data']}><use xlinkHref="#no-data"/></svg>
     </section>
   }
